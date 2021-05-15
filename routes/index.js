@@ -5,7 +5,9 @@ const router = express.Router();
 // route - GET /
 // when we res.render it will look for the views login and dashboard
 router.get("/", (req, res) => {
-  res.render("login");
+  res.render("login", {
+    layout: "login",
+  });
 });
 
 // DESCRIPTION - Dashboard

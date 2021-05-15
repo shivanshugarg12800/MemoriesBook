@@ -16,14 +16,14 @@ const app = express();
 //ROUTES
 app.use("/", require("./routes/index"));
 
-//STATIC FOLDER
+//-----------------STATIC FOLDER----------------
 app.use(express.static(path.join(__dirname, "public")));
 
-//logging
+//-----------logging--------------------
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-// handle bars
+//-------------------- handle bars----------------
 app.engine(".hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
