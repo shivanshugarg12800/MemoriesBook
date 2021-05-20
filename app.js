@@ -39,6 +39,8 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
+    // it stores the session when we logged in for the first time, so that the reload or any internet connectivity
+    // issue doesnot log out us from the application
     store: MongoDbStore.create({
       mongoUrl: process.env.MONGO_URI,
     }),
