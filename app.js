@@ -33,9 +33,23 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+//-----------------HANDLEBARS HELPER----------------
+const { formatDate, stripTags, truncate, editIcon } = require("./helpers/hbs");
 
 //-------------------- handle bars----------------
-app.engine(".hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
+app.engine(
+  ".hbs",
+  exphbs({
+    helpers: {
+      formatDate,
+      stripTags,
+      truncate,
+      editIcon,
+    },
+    defaultLayout: "main",
+    extname: ".hbs",
+  })
+);
 app.set("view engine", ".hbs");
 
 //-----------------STATIC FOLDER----------------
@@ -58,6 +72,13 @@ app.use(
 //---------------PASSPORT MIDDLEWARE-------------
 app.use(passport.initialize());
 app.use(passport.session());
+
+//-----------------SET GLOBAL VARIABLE-----------------
+// this middle ware is used to make the user as a global variable so that it can be used in the index.hbs
+app.use(function (req, res, next) {
+  res.locals.user = req.user || null;
+  next();
+});
 
 //---------------------ROUTES-------------------
 app.use("/", require("./routes/index"));
