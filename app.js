@@ -30,7 +30,7 @@ app.use(
 );
 app.use(express.json());
 
-//-------------METHOD OVERRIDING----------------
+//-------------METHOD OVERRIDING------------------
 app.use(
   methodOverride(function (req, res) {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
